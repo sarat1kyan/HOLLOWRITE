@@ -5,3 +5,5 @@ apps/web/dist/
 *.log
 /captures/tmp/
 .DS_Store
+/.data/
+/captures/

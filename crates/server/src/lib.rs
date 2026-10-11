@@ -34,7 +34,7 @@ impl Limits {
             register: Limiter::new(per_hour, per_hour / 3600.0),
             login_ip: Limiter::new(20.0, 20.0 / 60.0),
             login_user: Limiter::new(8.0, 8.0 / 60.0),
-            ws_connect: Limiter::new(20.0, 1.0),
+            ws_connect: Limiter::new(config.connect_burst.max(1.0), 1.0),
         }
     }
 }

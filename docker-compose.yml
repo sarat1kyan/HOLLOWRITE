@@ -1,0 +1,37 @@
+# Local services. `docker compose up -d db` starts PostgreSQL only; the
+# `full` profile also builds and runs the game server with the web client.
+services:
+  db:
+    image: postgres:16.6-alpine
+    environment:
+      POSTGRES_USER: hollowrite
+      POSTGRES_PASSWORD: hollowrite
+      POSTGRES_DB: hollowrite
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./scripts/db-init.sql:/docker-entrypoint-initdb.d/10-test-db.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hollowrite -d hollowrite"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  server:
+    profiles: ["full"]
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://hollowrite:hollowrite@db:5432/hollowrite
+      HOLLOWRITE_BIND: 0.0.0.0:7700
+      HOLLOWRITE_ALLOWED_ORIGINS: http://localhost:7700,http://127.0.0.1:7700
+      RUST_LOG: info,sqlx=warn
+    ports:
+      - "127.0.0.1:7700:7700"
+    stop_grace_period: 20s
+
+volumes:
+  pgdata:

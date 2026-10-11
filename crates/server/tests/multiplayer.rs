@@ -29,6 +29,7 @@ fn config() -> Option<Config> {
         db_max_connections: 5,
         public_metrics: false,
         registrations_per_hour: 1000.0,
+        connect_burst: 1000.0,
     })
 }
 

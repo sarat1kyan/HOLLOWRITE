@@ -14,6 +14,7 @@ pub struct Config {
     pub db_max_connections: u32,
     pub public_metrics: bool,
     pub registrations_per_hour: f64,
+    pub connect_burst: f64,
 }
 
 fn env(key: &str) -> Option<String> {
@@ -51,6 +52,7 @@ impl Config {
             seed: env("HOLLOWRITE_SEED").and_then(|v| v.parse().ok()).unwrap_or(0x484f_4c4c_4f57),
             session_days: env("HOLLOWRITE_SESSION_DAYS").and_then(|v| v.parse().ok()).unwrap_or(14),
             db_max_connections: env("HOLLOWRITE_DB_MAX_CONNECTIONS").and_then(|v| v.parse().ok()).unwrap_or(10),
+            connect_burst: env("HOLLOWRITE_CONNECT_BURST").and_then(|v| v.parse().ok()).unwrap_or(20.0),
             registrations_per_hour: env("HOLLOWRITE_REGISTRATIONS_PER_HOUR")
                 .and_then(|v| v.parse().ok())
                 .unwrap_or(10.0),

@@ -12,7 +12,7 @@ members = [
 [workspace.package]
 version = "0.1.0"
 edition = "2021"
-rust-version = "1.85"
+rust-version = "1.87"
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/sarat1kyan/HOLLOWRITE"
 
@@ -42,7 +42,7 @@ hex = "0.4"
 base64 = "0.22"
 futures-util = { version = "0.3", default-features = false, features = ["sink", "std"] }
 tokio-tungstenite = { version = "0.26", features = ["rustls-tls-webpki-roots"] }
-ratatui = "0.29"
+ratatui = "0.30"
 unicode-width = "0.2"
 clap = { version = "4.5", features = ["derive", "env"] }
 reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls", "cookies"] }
