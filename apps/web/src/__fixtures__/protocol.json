@@ -1,0 +1,512 @@
+{
+  "client": [
+    {
+      "build": "web",
+      "client": "web",
+      "protocol": 1,
+      "t": "hello"
+    },
+    {
+      "t": "list_characters"
+    },
+    {
+      "archetype": "grave_runner",
+      "look": {
+        "hue": 5,
+        "sigil": 3
+      },
+      "name": "Alice",
+      "t": "create_character"
+    },
+    {
+      "id": "c1",
+      "t": "select_character"
+    },
+    {
+      "act": "guard_on",
+      "mv": "sw",
+      "seq": 9,
+      "t": "input"
+    },
+    {
+      "seq": 10,
+      "t": "input"
+    },
+    {
+      "item": "hollow_toll",
+      "slot": "spell2",
+      "t": "equip"
+    },
+    {
+      "item": null,
+      "slot": "main",
+      "t": "equip"
+    },
+    {
+      "item": "ashen_moth",
+      "t": "use_item"
+    },
+    {
+      "attr": "occult",
+      "t": "level_up"
+    },
+    {
+      "choice": 1,
+      "npc": 3,
+      "t": "talk"
+    },
+    {
+      "channel": "party",
+      "t": "chat",
+      "text": "hi"
+    },
+    {
+      "name": "Bob",
+      "t": "party_invite"
+    },
+    {
+      "from": "Bob",
+      "t": "party_accept"
+    },
+    {
+      "t": "party_leave"
+    },
+    {
+      "name": "Bob",
+      "on": true,
+      "t": "mute"
+    },
+    {
+      "name": "Bob",
+      "reason": "spam",
+      "t": "report"
+    },
+    {
+      "nonce": 4,
+      "t": "ping"
+    },
+    {
+      "t": "resync"
+    },
+    {
+      "t": "leave"
+    }
+  ],
+  "server": [
+    {
+      "account": "alice",
+      "body_radius": 300,
+      "protocol": 1,
+      "server": "hollowrite",
+      "snapshot_hz": 15,
+      "t": "welcome",
+      "tick_hz": 30,
+      "walk_speed": 120
+    },
+    {
+      "code": "name_taken",
+      "message": "taken",
+      "t": "error"
+    },
+    {
+      "list": [
+        {
+          "archetype": "veil_seer",
+          "id": "c1",
+          "level": 2,
+          "location": "last_lantern",
+          "look": {
+            "hue": 3,
+            "sigil": 0
+          },
+          "name": "Alice"
+        }
+      ],
+      "t": "characters"
+    },
+    {
+      "map": {
+        "doors": [
+          {
+            "id": "d",
+            "x": 2,
+            "y": 1
+          }
+        ],
+        "height": 3,
+        "id": "m",
+        "lanterns": [
+          {
+            "id": "l",
+            "name": "L",
+            "x": 1,
+            "y": 1
+          }
+        ],
+        "name": "M",
+        "rows": [
+          "#####",
+          "#.D.#",
+          "#####"
+        ],
+        "width": 5,
+        "zones": [
+          {
+            "h": 3,
+            "id": "z",
+            "name": "Z",
+            "safe": true,
+            "w": 5,
+            "x": 0,
+            "y": 0
+          }
+        ]
+      },
+      "sheet": {
+        "archetype": "ash_warden",
+        "attrs": [
+          13,
+          12,
+          12,
+          8,
+          6
+        ],
+        "checkpoint": "last_lantern",
+        "echoes": 420,
+        "equipment": {
+          "armor": null,
+          "main": "rustbrand_sword",
+          "off": null,
+          "spell1": null,
+          "spell2": null
+        },
+        "id": "c1",
+        "inventory": [
+          {
+            "desc": "d",
+            "item": "rustbrand_sword",
+            "kind": "weapon",
+            "name": "Rustbrand Sword",
+            "qty": 1
+          }
+        ],
+        "lanterns": [
+          "last_lantern"
+        ],
+        "level": 3,
+        "look": {
+          "hue": 2,
+          "sigil": 1
+        },
+        "name": "Alice",
+        "next_level_cost": 160,
+        "open_doors": [
+          "tunnel_shortcut"
+        ],
+        "quests": [
+          {
+            "done": false,
+            "id": "q",
+            "note": "n",
+            "title": "A Second Light"
+          }
+        ],
+        "stats": {
+          "defense": 6,
+          "heavy_damage": 96,
+          "hp_max": 444,
+          "light_damage": 58,
+          "spell_power": 0,
+          "stamina_max": 108,
+          "wick_max": 44
+        }
+      },
+      "t": "enter_world",
+      "tick": 100,
+      "you": 7
+    },
+    {
+      "ack": 5,
+      "entities": [
+        {
+          "action": "light",
+          "def": "ash_warden",
+          "facing": "e",
+          "hp": [
+            400,
+            444
+          ],
+          "id": 7,
+          "kind": "player",
+          "look": {
+            "hue": 2,
+            "sigil": 1
+          },
+          "name": "Alice",
+          "progress": 40,
+          "rel": "me",
+          "state": "windup",
+          "x": 1500,
+          "y": 1500
+        }
+      ],
+      "gone": [
+        3
+      ],
+      "me": {
+        "boss": {
+          "hp": 1000,
+          "hp_max": 2600,
+          "name": "The Bell-Mother",
+          "phase": 2,
+          "vulnerable": true
+        },
+        "cooldowns": [
+          0,
+          12
+        ],
+        "draughts": 2,
+        "draughts_max": 3,
+        "echoes": 420,
+        "hp": 400,
+        "hp_max": 444,
+        "interact": "Rest at Gloam Plaza Lantern",
+        "remnant": [
+          1500,
+          2500
+        ],
+        "stamina": 90,
+        "stamina_max": 108,
+        "state": "moving",
+        "wick": 44,
+        "wick_max": 44,
+        "zone": "plaza"
+      },
+      "t": "snapshot",
+      "tele": [
+        {
+          "cells": [
+            [
+              2,
+              1
+            ]
+          ],
+          "id": 1,
+          "kind": "shockwave",
+          "left": 10,
+          "owner": 9,
+          "total": 30
+        }
+      ],
+      "tick": 101
+    },
+    {
+      "sheet": {
+        "archetype": "ash_warden",
+        "attrs": [
+          13,
+          12,
+          12,
+          8,
+          6
+        ],
+        "checkpoint": "last_lantern",
+        "echoes": 420,
+        "equipment": {
+          "armor": null,
+          "main": "rustbrand_sword",
+          "off": null,
+          "spell1": null,
+          "spell2": null
+        },
+        "id": "c1",
+        "inventory": [
+          {
+            "desc": "d",
+            "item": "rustbrand_sword",
+            "kind": "weapon",
+            "name": "Rustbrand Sword",
+            "qty": 1
+          }
+        ],
+        "lanterns": [
+          "last_lantern"
+        ],
+        "level": 3,
+        "look": {
+          "hue": 2,
+          "sigil": 1
+        },
+        "name": "Alice",
+        "next_level_cost": 160,
+        "open_doors": [
+          "tunnel_shortcut"
+        ],
+        "quests": [
+          {
+            "done": false,
+            "id": "q",
+            "note": "n",
+            "title": "A Second Light"
+          }
+        ],
+        "stats": {
+          "defense": 6,
+          "heavy_damage": 96,
+          "hp_max": 444,
+          "light_damage": 58,
+          "spell_power": 0,
+          "stamina_max": 108,
+          "wick_max": 44
+        }
+      },
+      "t": "sheet"
+    },
+    {
+      "events": [
+        {
+          "amount": 30,
+          "dst": 2,
+          "e": "hit",
+          "kind": "critical",
+          "src": 1,
+          "x": 1,
+          "y": 2
+        },
+        {
+          "action": "heavy",
+          "e": "swing",
+          "facing": "ne",
+          "src": 1,
+          "x": 1,
+          "y": 2
+        },
+        {
+          "e": "staggered",
+          "id": 2
+        },
+        {
+          "e": "died",
+          "id": 2,
+          "x": 1,
+          "y": 2
+        },
+        {
+          "e": "respawned",
+          "id": 1,
+          "lantern": "last_lantern"
+        },
+        {
+          "amount": 60,
+          "e": "echoes_gained",
+          "total": 480
+        },
+        {
+          "amount": 10,
+          "e": "echoes_lost"
+        },
+        {
+          "amount": 10,
+          "e": "echoes_reclaimed"
+        },
+        {
+          "e": "item_gained",
+          "item": "ashen_moth",
+          "name": "Ashen Moth",
+          "qty": 2
+        },
+        {
+          "e": "lantern_lit",
+          "lantern": "gloam_lantern",
+          "name": "Gloam Plaza Lantern"
+        },
+        {
+          "e": "rested",
+          "lantern": "gloam_lantern"
+        },
+        {
+          "e": "level_up",
+          "level": 4
+        },
+        {
+          "e": "boss_phase",
+          "id": 9,
+          "phase": 2
+        },
+        {
+          "e": "boss_defeated",
+          "id": 9,
+          "name": "The Bell-Mother"
+        },
+        {
+          "e": "boss_reset",
+          "id": 9
+        },
+        {
+          "e": "toll",
+          "radius": 26,
+          "x": 1,
+          "y": 2
+        },
+        {
+          "door": "ossuary_gate",
+          "e": "door_opened"
+        },
+        {
+          "e": "notice",
+          "text": "hello"
+        },
+        {
+          "e": "zone_entered",
+          "name": "Ash Orchard",
+          "zone": "orchard"
+        }
+      ],
+      "t": "events",
+      "tick": 101
+    },
+    {
+      "channel": "party",
+      "from": "Bob",
+      "t": "chat",
+      "text": "hi"
+    },
+    {
+      "invites": [
+        "Cy"
+      ],
+      "members": [
+        {
+          "hp": [
+            1,
+            2
+          ],
+          "leader": true,
+          "name": "Bob",
+          "online": true
+        }
+      ],
+      "t": "party"
+    },
+    {
+      "choices": [
+        "c"
+      ],
+      "lines": [
+        "l"
+      ],
+      "npc": 3,
+      "speaker": "Hesper",
+      "t": "dialogue"
+    },
+    {
+      "nonce": 1,
+      "t": "pong",
+      "tick": 2
+    },
+    {
+      "reason": "r",
+      "t": "kicked"
+    }
+  ]
+}
