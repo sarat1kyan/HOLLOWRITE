@@ -20,6 +20,8 @@ wick_regen_every = 30
 poise_regen_delay = 60
 
 stagger_ticks = 36
+enemy_stagger_ticks = 30
+enemy_steady_ticks = 75
 riposte_ticks = 45
 critical_mult_pct = 250
 dead_ticks = 75

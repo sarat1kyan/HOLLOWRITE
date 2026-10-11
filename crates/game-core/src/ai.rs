@@ -14,8 +14,12 @@ const LOST_TARGET_TICKS: u16 = 90;
 const REPATH_TICKS: u16 = 6;
 const DEAD_VISIBLE_TICKS: u32 = 30;
 const LOOT_LIFETIME: u64 = 30 * 180;
-const BLINK_COOLDOWN: u16 = 150;
+const BLINK_COOLDOWN: u16 = 90;
 const PATH_BUDGET: usize = 1600;
+const RETREAT_BUDGET: u16 = 60;
+const ATTACK_GAP_MIN: i32 = 18;
+const ATTACK_GAP_MAX: i32 = 45;
+const HOLD_GROUND_TICKS: u64 = 150;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Mode {
@@ -69,6 +73,14 @@ pub struct Enemy {
     pub speed: i32,
     pub boss: Option<BossState>,
     pub pending_death: bool,
+    /// After recovering from a stagger an enemy briefly ignores poise damage,
+    /// so a stagger is a punish window rather than a lock.
+    pub steady_until: u64,
+    pub retreat_ticks: u16,
+    pub hold_until: u64,
+    /// Earliest tick the next attack may start. The gap after each
+    /// recovery is the player's window to strike back.
+    pub next_attack: u64,
 }
 
 impl Enemy {
@@ -106,6 +118,10 @@ impl Enemy {
             speed: d.speed,
             boss,
             pending_death: false,
+            steady_until: 0,
+            retreat_ticks: 0,
+            hold_until: 0,
+            next_attack: 0,
         }
     }
 
@@ -246,12 +262,16 @@ impl World {
             e.mode = Mode::Chase;
         }
         let mut staggered = false;
-        e.body.poise = e.body.poise.saturating_sub(poise);
-        e.body.poise_timer = content.balance.poise_regen_delay;
+        if tick >= e.steady_until && e.body.act.state != ActorState::Staggered {
+            e.body.poise = e.body.poise.saturating_sub(poise);
+            e.body.poise_timer = content.balance.poise_regen_delay;
+        }
         if e.body.poise == 0 && e.body.hp > 0 {
+            let b = &content.balance;
             e.body.poise = e.body.poise_max;
             e.windup = None;
-            e.body.act = Act::new(ActorState::Staggered, ActKind::Enemy, content.balance.stagger_ticks);
+            e.body.act = Act::new(ActorState::Staggered, ActKind::Enemy, b.enemy_stagger_ticks);
+            e.steady_until = tick + (b.enemy_stagger_ticks + b.enemy_steady_ticks) as u64;
             staggered = true;
         }
         if e.body.hp == 0 {
@@ -404,6 +424,8 @@ impl World {
                 if e.body.act.t >= e.body.act.dur {
                     e.body.act = Act::idle();
                     e.windup = None;
+                    let (lo, hi) = if e.is_boss() { (8, 20) } else { (ATTACK_GAP_MIN, ATTACK_GAP_MAX) };
+                    e.next_attack = tick + self.rng.range_i32(lo, hi) as u64;
                 }
             }
             _ => self.enemy_think(&mut e, &def),
@@ -488,16 +510,17 @@ impl World {
         let dist = pos.dist(tpos);
 
         if let Some(range) = def.blink {
-            if dist < 1800 && e.blink_cd == 0 && self.try_blink(e, tpos, range) {
+            if dist < 2200 && e.blink_cd == 0 && self.try_blink(e, tpos, range) {
                 return;
             }
         }
 
         let attacks = self.enemy_attacks(e);
         let sees = e.lost == 0;
+        let ready = self.tick >= e.next_attack;
         let candidates: Vec<&EnemyAttack> = attacks
             .iter()
-            .filter(|a| sees && dist >= a.min_range && dist <= a.max_range + e.body.radius)
+            .filter(|a| ready && sees && dist >= a.min_range && dist <= a.max_range + e.body.radius)
             .filter(|a| e.cooldowns.get(&a.id).copied().unwrap_or(0) == 0)
             .collect();
         if !candidates.is_empty() {
@@ -515,9 +538,17 @@ impl World {
             return;
         }
 
-        if def.keep_distance > 0 && dist < def.keep_distance - 1000 {
+        // Ranged foes back off, but only for so long: after a couple of
+        // seconds of retreating they hold their ground instead of kiting.
+        let tick = self.tick;
+        if def.keep_distance > 0 && dist < def.keep_distance - 2000 && tick >= e.hold_until {
+            e.retreat_ticks += 1;
+            if e.retreat_ticks > RETREAT_BUDGET {
+                e.retreat_ticks = 0;
+                e.hold_until = tick + HOLD_GROUND_TICKS;
+            }
             self.step_away(e, tpos);
-        } else if def.keep_distance > 0 && dist <= def.keep_distance + 1500 && sees {
+        } else if def.keep_distance > 0 && (dist < def.keep_distance - 2000 || (dist <= def.keep_distance + 1500 && sees)) {
             e.body.facing = facing_to(pos, tpos, e.body.facing);
             e.body.act.state = ActorState::Idle;
         } else {

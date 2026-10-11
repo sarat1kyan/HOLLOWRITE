@@ -307,11 +307,26 @@ impl Model {
             let (dx, dy) = d.offset();
             let norm = if dx != 0 && dy != 0 { std::f32::consts::FRAC_1_SQRT_2 } else { 1.0 };
             let (mx, my) = (dx as f32 * dist * norm, dy as f32 * dist * norm);
-            if self.box_clear(p.x + mx, p.y, r) {
-                p.x += mx;
+            let cell = CELL as f32;
+            if mx != 0.0 {
+                if self.box_clear(p.x + mx, p.y, r) {
+                    p.x += mx;
+                } else if my == 0.0 {
+                    let centre = (p.y / cell).floor() * cell + cell / 2.0;
+                    if self.box_clear(p.x + mx, centre, r) {
+                        p.y += (centre - p.y).signum() * mx.abs().min((centre - p.y).abs());
+                    }
+                }
             }
-            if self.box_clear(p.x, p.y + my, r) {
-                p.y += my;
+            if my != 0.0 {
+                if self.box_clear(p.x, p.y + my, r) {
+                    p.y += my;
+                } else if mx == 0.0 {
+                    let centre = (p.x / cell).floor() * cell + cell / 2.0;
+                    if self.box_clear(centre, p.y + my, r) {
+                        p.x += (centre - p.x).signum() * my.abs().min((centre - p.x).abs());
+                    }
+                }
             }
         }
         p.history.push_back((now, p.x, p.y));

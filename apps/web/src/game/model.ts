@@ -208,8 +208,20 @@ export class Model {
       const [dx, dy] = DIR_OFFSET[held];
       const norm = dx !== 0 && dy !== 0 ? Math.SQRT1_2 : 1;
       const mx = dx * dist * norm, my = dy * dist * norm;
-      if (this.boxClear(p.x + mx, p.y)) p.x += mx;
-      if (this.boxClear(p.x, p.y + my)) p.y += my;
+      if (mx !== 0) {
+        if (this.boxClear(p.x + mx, p.y)) p.x += mx;
+        else if (my === 0) {
+          const centre = Math.floor(p.y / CELL) * CELL + CELL / 2;
+          if (this.boxClear(p.x + mx, centre)) p.y += Math.sign(centre - p.y) * Math.min(Math.abs(mx), Math.abs(centre - p.y));
+        }
+      }
+      if (my !== 0) {
+        if (this.boxClear(p.x, p.y + my)) p.y += my;
+        else if (mx === 0) {
+          const centre = Math.floor(p.x / CELL) * CELL + CELL / 2;
+          if (this.boxClear(centre, p.y + my)) p.x += Math.sign(centre - p.x) * Math.min(Math.abs(my), Math.abs(centre - p.x));
+        }
+      }
     }
     p.history.push({ at: now, x: p.x, y: p.y });
     if (p.history.length > 120) p.history.shift();

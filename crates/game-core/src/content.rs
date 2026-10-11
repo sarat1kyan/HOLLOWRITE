@@ -37,6 +37,8 @@ pub struct Balance {
     pub wick_regen_every: u16,
     pub poise_regen_delay: u16,
     pub stagger_ticks: u16,
+    pub enemy_stagger_ticks: u16,
+    pub enemy_steady_ticks: u16,
     pub riposte_ticks: u16,
     pub critical_mult_pct: u32,
     pub dead_ticks: u16,

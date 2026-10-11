@@ -380,14 +380,33 @@ impl World {
     /// content validation to under half a cell, so a box test at the
     /// destination is sufficient to prevent tunnelling.
     pub(crate) fn slide(pos: Pos, dx: i32, dy: i32, r: i32, pass: &impl Fn(i32, i32) -> bool) -> Pos {
+        let cell = hollowrite_protocol::CELL;
         let mut p = pos;
         let nx = Pos::new(p.x + dx, p.y);
-        if dx != 0 && Self::box_clear(nx, r, pass) {
-            p = nx;
+        if dx != 0 {
+            if Self::box_clear(nx, r, pass) {
+                p = nx;
+            } else if dy == 0 {
+                // Corner assist: pressing straight into a doorway edge eases
+                // the body toward the centre of its row instead of stalling.
+                let centre = p.y.div_euclid(cell) * cell + cell / 2;
+                if centre != p.y && Self::box_clear(Pos::new(p.x + dx, centre), r, pass) {
+                    let step = (centre - p.y).signum() * dx.abs().min((centre - p.y).abs());
+                    p.y += step;
+                }
+            }
         }
         let ny = Pos::new(p.x, p.y + dy);
-        if dy != 0 && Self::box_clear(ny, r, pass) {
-            p = ny;
+        if dy != 0 {
+            if Self::box_clear(ny, r, pass) {
+                p = ny;
+            } else if dx == 0 {
+                let centre = p.x.div_euclid(cell) * cell + cell / 2;
+                if centre != p.x && Self::box_clear(Pos::new(centre, p.y + dy), r, pass) {
+                    let step = (centre - p.x).signum() * dy.abs().min((centre - p.x).abs());
+                    p.x += step;
+                }
+            }
         }
         p
     }
