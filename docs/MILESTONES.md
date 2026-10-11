@@ -54,8 +54,9 @@ recorded manual check; see TEST_PLAN.md for the evidence.
 - [x] Network indicator and stale-connection warning.
 - [ ] Audio cues (optional in the brief; not implemented).
 - [ ] Pointer interactions in the browser (keyboard only for now).
-- [ ] Captures of combat across both clients at once (rules are tested;
-      screenshots exist only for the shared sanctuary).
+- [x] Captures of a shared fight across both clients
+      (`scripts/cross-client-fight.sh`).
+- [ ] Capture of the boss fight across both clients.
 
 ## M5: hardening (in progress)
 
@@ -97,7 +98,7 @@ recorded manual check; see TEST_PLAN.md for the evidence.
 
 1. Human playtest session (two people, one per client) through the whole
    path; record session length, deaths and the boss fight.
-2. Capture cross-client combat and the boss for the README.
+2. Capture the boss fight across both clients for the README.
 3. Windows and macOS terminal checks; Firefox and Safari checks.
 4. Field-delta snapshots behind a protocol version bump, if measurements
    from playtests show the need.

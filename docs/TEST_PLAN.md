@@ -146,15 +146,18 @@ client in a 120×35 tmux pane, Chromium driven by
 | C. both create characters and meet at the Last Lantern | done | `docs/captures/*` |
 | D. both see each other move; chat crosses clients | done; Bob's message appears in Alice's terminal | `docs/captures/terminal-alice-sees-bob.png`, `browser-bob-sees-alice.png` |
 | D. party | verified by the end-to-end test and `make smoke`, not by hand in the two UIs | test output |
-| E. shared enemy, telegraphs, rewards | rules verified in simulation and duel tests (two contributors each rewarded once); not yet captured with one player per client | tests |
+| E. shared enemy, telegraphs, rewards | done: terminal Dave and browser Erin walked the same route and killed the first knight together; both at the same health (296/444), both +60 echoes once, Dave's Grave Salt drop personal | `docs/captures/terminal-dave-fights-knight.png`, `browser-erin-fights-knight.png`, `scripts/cross-client-fight.sh` |
 | F. same boss health and phase for both | verified in simulation (shared encounter, scaling, phase); not yet captured across clients | tests |
 | G. death, respawn, remnant retrieval | verified in simulation; the persistence of remnants verified in the database round-trip test | tests |
 | H. disconnect, restart, resume | verified by the end-to-end restart test (position and inventory) | test output |
-| I. low-colour / ASCII mode | the terminal supports `--colors 16 --ascii`; covered by theme tests | — |
+| I. low-colour / ASCII mode | done: `--ascii --colors 16` at 100×30, all terrain, players, NPC and lantern legible | `docs/captures/terminal-ascii-16colour.png` |
 
 Steps marked "not yet captured" are honest gaps in manual evidence, not in
 functionality: the server code paths are the same for both clients, and the
 tests exercise them through the real protocol.
+
+Layout captures: `docs/captures/terminal-80x24.png` (compact layout) and
+`docs/captures/terminal-ascii-16colour.png` (`--ascii --colors 16`).
 
 ## Performance
 

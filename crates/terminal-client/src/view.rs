@@ -417,14 +417,15 @@ fn draw_hud(f: &mut Frame, app: &App, m: &Model, area: Rect) {
         Paragraph::new(vec![Line::from(l1), Line::from(l2)]).style(Style::default().bg(t.color("void"))),
         area,
     );
+    let (on, off) = (t.pick("●", "*"), t.pick("○", "o"));
     let (net, color) = match m.rtt {
-        Some(r) if r.as_millis() < 120 => (format!("● {}ms", r.as_millis()), "sickly_hi"),
-        Some(r) if r.as_millis() < 250 => (format!("● {}ms", r.as_millis()), "amber"),
-        Some(r) => (format!("● {}ms", r.as_millis()), "blood_hi"),
-        None => ("○ ...".to_string(), "ash"),
+        Some(r) if r.as_millis() < 120 => (format!("{on} {}ms", r.as_millis()), "sickly_hi"),
+        Some(r) if r.as_millis() < 250 => (format!("{on} {}ms", r.as_millis()), "amber"),
+        Some(r) => (format!("{on} {}ms", r.as_millis()), "blood_hi"),
+        None => (format!("{off} ..."), "ash"),
     };
     let stale = Instant::now().duration_since(m.last_snapshot).as_millis() > 1500;
-    let net = if stale { "○ waiting for server".to_string() } else { net };
+    let net = if stale { format!("{off} waiting for server") } else { net };
     let x = area.x as i32 + area.width as i32 - net.width() as i32 - 1;
     text(
         f.buffer_mut(),
@@ -772,8 +773,9 @@ fn draw_world(f: &mut Frame, app: &App, m: &Model, area: Rect, now: Instant) {
         }
     }
 
-    for fx in &m.effects {
+    for (i, fx) in m.effects.iter().enumerate() {
         let age = fx.age(now);
+        let spread = (i % 3) as i32 - 1;
         let (cx, cy) = (fx.x.div_euclid(CELL), fx.y.div_euclid(CELL));
         let (sx, sy) = to_screen(cx, cy);
         match &fx.kind {
@@ -782,7 +784,7 @@ fn draw_world(f: &mut Frame, app: &App, m: &Model, area: Rect, now: Instant) {
                 text(
                     buf,
                     area,
-                    sx - s.width() as i32 / 2,
+                    sx - s.width() as i32 / 2 + spread * 2,
                     sy - 1 - rise,
                     s,
                     Style::default().fg(t.shade(color, 1.0 - age * 0.5)).add_modifier(Modifier::BOLD),
@@ -933,7 +935,7 @@ fn draw_footer(f: &mut Frame, app: &App, m: &Model, area: Rect) {
     let t = &app.theme;
     let first = m.chat.back().map(|c| chat_line(t, c)).unwrap_or_else(|| Line::from(""));
     let hints = Line::styled(
-        "WASD/QEZC move  J light  K heavy  Space roll  L guard  I parry  H drink  1/2 rite  F use  Tab gear  M map  ? help",
+        "WASD move  J/K hit  Space roll  L guard  I parry  H drink  F use  Tab gear  ? help",
         Style::default().fg(t.ui("muted")),
     );
     f.render_widget(Paragraph::new(vec![first, hints]), area);

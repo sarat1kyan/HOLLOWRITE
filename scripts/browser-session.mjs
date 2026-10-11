@@ -55,6 +55,18 @@ for (const step of walk.split(",").filter(Boolean)) {
   await page.waitForTimeout(Number(ms || 300));
   await page.keyboard.up(key);
 }
+if (process.env.FIGHT_MS) {
+  const until = Date.now() + Number(process.env.FIGHT_MS);
+  let shot = false;
+  while (Date.now() < until) {
+    await page.keyboard.press("KeyJ");
+    await page.waitForTimeout(600);
+    if (!shot && Date.now() > until - Number(process.env.FIGHT_MS) / 2) {
+      await page.screenshot({ path: `${out}/web-${name}-fight.png` });
+      shot = true;
+    }
+  }
+}
 if (process.env.SAY) {
   await page.keyboard.press("Enter");
   await page.keyboard.type(process.env.SAY);

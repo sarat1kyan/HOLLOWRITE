@@ -548,7 +548,9 @@ impl World {
                 e.hold_until = tick + HOLD_GROUND_TICKS;
             }
             self.step_away(e, tpos);
-        } else if def.keep_distance > 0 && (dist < def.keep_distance - 2000 || (dist <= def.keep_distance + 1500 && sees)) {
+        } else if def.keep_distance > 0
+            && (dist < def.keep_distance - 2000 || (dist <= def.keep_distance + 1500 && sees))
+        {
             e.body.facing = facing_to(pos, tpos, e.body.facing);
             e.body.act.state = ActorState::Idle;
         } else {

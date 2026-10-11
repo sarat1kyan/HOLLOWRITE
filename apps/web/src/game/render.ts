@@ -226,7 +226,8 @@ export class Renderer {
       this.entity(v, sx, sy, flash, m.me, secs, motion);
     }
 
-    for (const fx of m.effects) {
+    m.effects.forEach((fx, i) => {
+      const spread = (i % 3) - 1;
       const age = Math.min(1, (now - fx.born) / fx.life);
       const cx = Math.floor(fx.x / CELL), cy = Math.floor(fx.y / CELL);
       const sx = cx - ox, sy = cy - oy;
@@ -235,7 +236,7 @@ export class Renderer {
         const ctx2 = this.ctx;
         ctx2.font = `bold ${this.opts.fontSize}px ${FONT_STACK}`;
         ctx2.fillStyle = this.col(fx.color, 1 - age * 0.5);
-        ctx2.fillText(fx.text, sx * this.cellW + this.cellW / 2, (sy - 1 - rise) * this.cellH + this.cellH / 2);
+        ctx2.fillText(fx.text, (sx + spread * 2) * this.cellW + this.cellW / 2, (sy - 1 - rise) * this.cellH + this.cellH / 2);
       } else if (fx.kind === "swing") {
         const idx = DIRS.indexOf(fx.facing);
         for (const k of [-1, 0, 1]) {
@@ -263,7 +264,7 @@ export class Renderer {
           if (m.isVisible(cx + rx, cy + ry)) this.glyph(sx + rx, sy + ry, this.pick("◌", "o"), this.col(fx.color, 1 - age * 0.7));
         }
       }
-    }
+    });
 
     if (m.banner) {
       const b = m.banner;
