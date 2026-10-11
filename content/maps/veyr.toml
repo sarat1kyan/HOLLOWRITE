@@ -1,0 +1,122 @@
+# Veyr: the single connected v0 level.
+#
+# The grid lives in veyr.map. Every character that is not a plain terrain
+# code (see docs/CONTENT_PIPELINE.md) must appear in the legend below. Legend
+# markers resolve to a base tile plus whatever they spawn or define.
+# Rows starting with ';' in the grid are ignored.
+
+id = "veyr"
+name = "Veyr"
+grid = "veyr.map"
+start_lantern = "last_lantern"
+
+[legend]
+"1" = { tile = "L", lantern = "last_lantern", name = "The Last Lantern" }
+"2" = { tile = "L", lantern = "gloam_lantern", name = "Gloam Plaza Lantern" }
+"3" = { tile = "L", lantern = "sexton_lantern", name = "Sexton's Lantern" }
+
+"H" = { tile = ".", npc = "hesper" }
+"N" = { tile = ".", npc = "ansel" }
+"M" = { tile = '"', npc = "moth" }
+
+"k" = { tile = ".", enemy = "oathless_knight" }
+"p" = { tile = ".", enemy = "ashen_pilgrim" }
+"h" = { tile = ".", enemy = "starveil_herald" }
+"B" = { tile = ".", enemy = "bell_mother" }
+
+"a" = { tile = "D", door = "tunnel_shortcut", rule = { kind = "oneway", from = "e" } }
+"o" = { tile = "D", door = "ossuary_shortcut", rule = { kind = "oneway", from = "e" } }
+"g" = { tile = "+", door = "ossuary_gate", rule = { kind = "key", key = "sexton_key" } }
+"x" = { tile = "X", door = "grove_wall", rule = { kind = "secret" } }
+"f" = { tile = "G", door = "belfry_gate", rule = { kind = "fog" } }
+
+"s" = { tile = ".", item = "sexton_key" }
+"m" = { tile = ".", item = "ashen_moth" }
+"w" = { tile = ".", item = "wax_seal", qty = 2 }
+"e" = { tile = ".", item = "grave_salt", qty = 2 }
+"v" = { tile = ".", item = "vigil_hauberk" }
+"j" = { tile = ".", item = "hollow_toll" }
+"r" = { tile = '"', item = "penitent_maul" }
+
+# Zones are matched last-to-first, so nested areas come after their parents.
+[[zones]]
+id = "gloamreach"
+name = "Gloamreach"
+x = 30
+y = 0
+w = 51
+h = 52
+
+[[zones]]
+id = "crossroads"
+name = "Gloamreach Crossroads"
+x = 30
+y = 18
+w = 16
+h = 13
+
+[[zones]]
+id = "tunnel"
+name = "Collapsed Aqueduct"
+x = 46
+y = 21
+w = 16
+h = 5
+
+[[zones]]
+id = "streets"
+name = "The Lampless Streets"
+x = 32
+y = 1
+w = 49
+h = 18
+
+[[zones]]
+id = "orchard"
+name = "Ash Orchard"
+x = 32
+y = 31
+w = 49
+h = 16
+
+[[zones]]
+id = "grove"
+name = "Thornhollow Grove"
+x = 46
+y = 46
+w = 15
+h = 5
+
+[[zones]]
+id = "plaza"
+name = "Gloam Plaza"
+x = 62
+y = 19
+w = 19
+h = 13
+
+[[zones]]
+id = "last_lantern"
+name = "The Last Lantern"
+x = 0
+y = 14
+w = 30
+h = 20
+safe = true
+
+[[zones]]
+id = "ossuary"
+name = "The Ossuary"
+x = 81
+y = 5
+w = 26
+h = 42
+
+[[zones]]
+id = "belfry"
+name = "Belfry of Names"
+x = 108
+y = 13
+w = 19
+h = 23
+arena = true

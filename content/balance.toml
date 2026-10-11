@@ -1,0 +1,82 @@
+# Global tuning. Durations are simulation ticks (tick_hz per second).
+# Distances and speeds are milli-cells: 1000 = one map cell.
+
+tick_hz = 30
+snapshot_every = 2
+interest_radius = 34000
+
+walk_speed = 120
+guard_speed_pct = 50
+heal_speed_pct = 40
+body_radius = 300
+
+input_buffer_ticks = 8
+move_intent_ttl = 12
+
+stamina_regen = 1
+stamina_regen_guarding = 0
+stamina_regen_delay = 18
+wick_regen_every = 30
+poise_regen_delay = 60
+
+stagger_ticks = 36
+riposte_ticks = 45
+critical_mult_pct = 250
+dead_ticks = 75
+
+draughts_base = 3
+unarmed_guard_pct = 35
+
+save_interval_ticks = 900
+enemy_respawn_ticks = 2700
+enemy_respawn_clear_radius = 12000
+remnant_pickup_radius = 900
+interact_radius = 1600
+
+[draught]
+windup = 30
+apply_at = 18
+heal_pct = 45
+
+[base]
+hp = 180
+hp_per_vit = 22
+stamina = 60
+stamina_per_end = 4
+wick = 20
+wick_per_occ = 4
+unarmed_damage = 12
+
+[level]
+base_cost = 100
+growth_pct = 9
+per_level = 15
+attr_cap = 40
+
+[rolls.standard]
+ticks = 18
+iframe_from = 2
+iframe_to = 10
+move_ticks = 12
+distance = 3200
+stamina = 24
+
+[rolls.quick]
+ticks = 15
+iframe_from = 1
+iframe_to = 10
+move_ticks = 10
+distance = 3400
+stamina = 20
+
+[parry]
+window = 6
+total = 22
+stamina = 14
+
+[boss]
+coop_hp_pct_per_extra = 70
+coop_poise_pct_per_extra = 30
+join_grace_ticks = 150
+reset_delay_ticks = 90
+repeat_reward_pct = 25

@@ -1,0 +1,37 @@
+[package]
+name = "hollowrite-server"
+description = "Authoritative HOLLOWRITE game server"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+name = "hollowrite-server"
+path = "src/main.rs"
+
+[dependencies]
+hollowrite-protocol.workspace = true
+hollowrite-game-core.workspace = true
+hollowrite-persistence.workspace = true
+tokio.workspace = true
+axum.workspace = true
+tower-http.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+uuid.workspace = true
+chrono.workspace = true
+argon2.workspace = true
+rand.workspace = true
+clap.workspace = true
+anyhow.workspace = true
+futures-util.workspace = true
+thiserror.workspace = true
+
+[dev-dependencies]
+hollowrite-test-support.workspace = true
+reqwest.workspace = true

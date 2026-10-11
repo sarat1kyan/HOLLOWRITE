@@ -1,0 +1,13 @@
+[package]
+name = "hollowrite-game-core"
+description = "Deterministic HOLLOWRITE simulation: world model, combat, AI and rules"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+hollowrite-protocol.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+toml.workspace = true
+thiserror.workspace = true

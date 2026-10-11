@@ -1,0 +1,22 @@
+[package]
+name = "hollowrite-test-support"
+description = "Headless protocol bots, latency proxy and smoke/load harnesses for HOLLOWRITE"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "hollowrite-bot"
+path = "src/main.rs"
+
+[dependencies]
+hollowrite-protocol.workspace = true
+tokio.workspace = true
+tokio-tungstenite.workspace = true
+futures-util.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+reqwest.workspace = true
+anyhow.workspace = true
+clap.workspace = true
+rand.workspace = true
