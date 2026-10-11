@@ -61,6 +61,9 @@ work.
 
 ## Quick start (local)
 
+**Full step-by-step instructions for Linux, macOS and Windows, a two-player
+test checklist and troubleshooting are in [docs/SETUP.md](docs/SETUP.md).**
+
 Requirements: Rust stable 1.87+, Node.js 20 or 22, and PostgreSQL 16 (Docker
 Compose is the easy route; a native install also works).
 

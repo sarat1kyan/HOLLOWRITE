@@ -4,7 +4,7 @@
 set -u
 ok=1
 need() { if command -v "$1" >/dev/null 2>&1; then printf '  ok    %-10s %s\n' "$1" "$($1 --version 2>&1 | head -1)"; else printf '  MISS  %-10s %s\n' "$1" "$2"; ok=0; fi; }
-want() { if command -v "$1" >/dev/null 2>&1; then printf '  ok    %-10s %s\n' "$1" "$($1 --version 2>&1 | head -1)"; else printf '  --    %-10s %s\n' "$1" "$2"; fi; }
+want() { if command -v "$1" >/dev/null 2>&1; then printf '  ok    %-10s %s\n' "$1" "$( { $1 --version || $1 -V; } 2>/dev/null | head -1)"; else printf '  --    %-10s %s\n' "$1" "$2"; fi; }
 echo "toolchain"
 need cargo "install Rust from https://rustup.rs (stable, 1.87+)"
 need node "install Node.js 20 or 22"
