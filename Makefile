@@ -5,7 +5,7 @@ SHELL := /bin/bash
 -include .env
 export
 
-SERVER_URL ?= http://127.0.0.1:7700
+SERVER_URL ?= $(or $(HOLLOWRITE_SERVER),http://127.0.0.1:7700)
 CARGO ?= cargo
 NPM ?= npm
 
