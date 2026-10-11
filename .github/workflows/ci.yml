@@ -1,0 +1,83 @@
+name: ci
+
+on:
+  push:
+    branches: [main, vertical-slice]
+  pull_request:
+
+permissions:
+  contents: read
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  rust:
+    runs-on: ubuntu-24.04
+    services:
+      postgres:
+        image: postgres:16.6-alpine
+        env:
+          POSTGRES_USER: hollowrite
+          POSTGRES_PASSWORD: hollowrite
+          POSTGRES_DB: hollowrite_test
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U hollowrite -d hollowrite_test" --health-interval 5s --health-timeout 3s --health-retries 20
+    env:
+      TEST_DATABASE_URL: postgres://hollowrite:hollowrite@127.0.0.1:5432/hollowrite_test
+      DATABASE_URL: postgres://hollowrite:hollowrite@127.0.0.1:5432/hollowrite_test
+    steps:
+      - uses: actions/checkout@v5
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
+      - name: fmt
+        run: cargo fmt --all -- --check
+      - name: clippy
+        run: cargo clippy --workspace --all-targets --locked -- -D warnings
+      - name: migrations from an empty database
+        run: cargo run -q --locked -p hollowrite-server -- migrate
+      - name: content validation
+        run: cargo run -q --locked -p hollowrite-server -- check-content
+      - name: tests (unit, simulation, database, end-to-end)
+        run: cargo test --workspace --locked
+      - name: smoke against the built server
+        run: |
+          cargo build -q --locked -p hollowrite-server -p hollowrite-test-support
+          HOLLOWRITE_REGISTRATIONS_PER_HOUR=100 target/debug/hollowrite-server &
+          for i in $(seq 1 30); do curl -fs http://127.0.0.1:7700/readyz && break; sleep 1; done
+          target/debug/hollowrite-bot smoke
+          kill %1
+
+  web:
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: apps/web
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+
+  audit:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+      - uses: dtolnay/rust-toolchain@stable
+      - name: cargo audit
+        run: |
+          cargo install cargo-audit --locked
+          cargo audit
+      - name: npm audit (production dependencies)
+        working-directory: apps/web
+        run: npm audit --omit=dev --audit-level=high

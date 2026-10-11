@@ -1,0 +1,22 @@
+# A quest is visible once its `start` flag is set and complete once its
+# `done` flag is set. The note shown is the last stage whose flags all hold.
+
+[quest.light_plaza]
+title = "A Second Light"
+start = "q:light_plaza"
+done = "q:light_plaza_done"
+stages = [
+    { when = ["q:light_plaza"], note = "Hesper asks you to light the lantern in Gloam Plaza, east of the crossroads." },
+    { when = ["lit:gloam_lantern"], note = "The plaza lantern burns. Return to Hesper at the Last Lantern." },
+]
+
+[quest.tolling_below]
+title = "The Tolling Below"
+start = "q:sexton"
+done = "clapper_given"
+stages = [
+    { when = ["q:sexton"], note = "Find the Sexton's Key in the chapel of the Lampless Streets." },
+    { when = ["got:sexton_key"], note = "Open the Ossuary gate in Gloam Plaza's east wall." },
+    { when = ["door:ossuary_gate"], note = "Descend through the Ossuary and silence the Bell-Mother." },
+    { when = ["slain:bell_mother"], note = "Give the Clapper of Names to Hesper or to Ansel. Only one of them may have it." },
+]

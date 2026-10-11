@@ -1,0 +1,254 @@
+# Enemy templates. Distances in milli-cells, durations in ticks (30/s).
+# Shapes: arc (cone from the body), line (thrust), circle (around a point
+# `offset` ahead), target_circle (centred on the target when the windup
+# starts), projectile, ring (boss shockwave volley).
+
+[oathless_knight]
+name = "Oathless Knight"
+behavior = "melee"
+level = 4
+hp = 320
+defense = 20
+poise = 90
+speed = 85
+sight = 8000
+leash = 16000
+echoes = 60
+lore = "Knights who swore to a crown and outlived the name on it. They still guard the streets by habit."
+drops = [
+    { item = "grave_salt", chance_pct = 20 },
+    { item = "rustbrand_sword", chance_pct = 6 },
+]
+
+[[oathless_knight.attacks]]
+id = "cleave"
+shape = "arc"
+reach = 1900
+arc = 120
+windup = 16
+active = 3
+recovery = 18
+damage = 72
+poise = 30
+max_range = 1800
+weight = 3
+parryable = true
+
+[[oathless_knight.attacks]]
+id = "lunge"
+shape = "line"
+reach = 3200
+windup = 22
+active = 4
+recovery = 22
+damage = 95
+poise = 50
+min_range = 1500
+max_range = 3000
+weight = 2
+heavy = true
+cooldown = 60
+
+[ashen_pilgrim]
+name = "Ashen Pilgrim"
+behavior = "ranged"
+level = 3
+hp = 190
+defense = 8
+poise = 35
+speed = 75
+sight = 9000
+leash = 15000
+keep_distance = 4500
+echoes = 45
+lore = "They walk the orchard swinging censers of their own ash, praying the smoke will reach someone who remembers them."
+drops = [
+    { item = "wax_seal", chance_pct = 25 },
+    { item = "ashen_moth", chance_pct = 10 },
+]
+
+[[ashen_pilgrim.attacks]]
+id = "censer"
+shape = "projectile"
+reach = 8000
+speed = 300
+windup = 20
+active = 1
+recovery = 20
+damage = 52
+poise = 20
+min_range = 2000
+max_range = 8000
+weight = 3
+cooldown = 30
+
+[[ashen_pilgrim.attacks]]
+id = "shove"
+shape = "arc"
+reach = 1500
+arc = 140
+windup = 12
+active = 2
+recovery = 16
+damage = 30
+poise = 25
+max_range = 1400
+weight = 2
+parryable = true
+
+[starveil_herald]
+name = "Starveil Herald"
+behavior = "occult"
+level = 6
+hp = 280
+defense = 12
+poise = 40
+speed = 70
+sight = 10000
+leash = 15000
+keep_distance = 5000
+blink = 4000
+echoes = 90
+lore = "Heralds of the thing beneath the stars. Their veils are sewn with constellations no one has seen from Veyr."
+drops = [
+    { item = "wax_seal", chance_pct = 30 },
+    { item = "thorn_knife", chance_pct = 5 },
+]
+
+[[starveil_herald.attacks]]
+id = "starfall"
+shape = "target_circle"
+radius = 1600
+windup = 34
+active = 3
+recovery = 24
+damage = 72
+poise = 40
+max_range = 9000
+weight = 3
+cooldown = 40
+
+[[starveil_herald.attacks]]
+id = "nova"
+shape = "circle"
+radius = 2200
+windup = 15
+active = 3
+recovery = 26
+damage = 45
+poise = 30
+max_range = 1800
+weight = 2
+cooldown = 60
+
+[bell_mother]
+name = "The Bell-Mother"
+behavior = "boss"
+level = 12
+hp = 2600
+defense = 25
+poise = 160
+speed = 60
+sight = 14000
+leash = 30000
+echoes = 2000
+radius = 900
+lore = "She was cast to ring the Hollow Rite. Every name the bell swallowed still sings inside her, and none of them in tune."
+
+[[bell_mother.attacks]]
+id = "sweep"
+shape = "arc"
+reach = 3600
+arc = 180
+windup = 24
+active = 4
+recovery = 22
+damage = 95
+poise = 60
+max_range = 3200
+weight = 3
+parryable = true
+
+[[bell_mother.attacks]]
+id = "slam"
+shape = "circle"
+radius = 2000
+offset = 2200
+windup = 30
+active = 4
+recovery = 30
+damage = 130
+poise = 90
+max_range = 3600
+weight = 2
+heavy = true
+
+[[bell_mother.attacks]]
+id = "toll"
+shape = "circle"
+radius = 2600
+windup = 26
+active = 3
+recovery = 26
+damage = 80
+poise = 70
+max_range = 2400
+weight = 2
+cooldown = 90
+
+[bell_mother.phase2]
+threshold_pct = 50
+transition_ticks = 75
+vulnerable_ticks = 90
+vulnerable_mult_pct = 160
+speed = 75
+shockwave_rings = 3
+shockwave_gap = 24
+shockwave_step = 3
+shockwave_damage = 70
+shockwave_max_radius = 11000
+dirge_pools = 3
+dirge_radius = 1100
+dirge_ticks = 180
+dirge_damage = 18
+dirge_every = 300
+
+[[bell_mother.phase2.attacks]]
+id = "sweep"
+shape = "arc"
+reach = 3600
+arc = 200
+windup = 18
+active = 4
+recovery = 20
+damage = 105
+poise = 60
+max_range = 3200
+weight = 3
+parryable = true
+
+[[bell_mother.phase2.attacks]]
+id = "slam"
+shape = "circle"
+radius = 2200
+offset = 2200
+windup = 26
+active = 4
+recovery = 28
+damage = 140
+poise = 90
+max_range = 3600
+weight = 2
+heavy = true
+
+[[bell_mother.phase2.attacks]]
+id = "peal"
+shape = "ring"
+windup = 30
+active = 1
+recovery = 10
+damage = 0
+poise = 0
+max_range = 14000
+weight = 2
+cooldown = 210

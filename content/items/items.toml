@@ -1,0 +1,153 @@
+# Item catalogue. Scaling: bonus damage = (might * might_pct + finesse * finesse_pct) / 100.
+# Spell damage adds occult * occult_pct / 100. Reach and radii are milli-cells.
+
+[rustbrand_sword]
+name = "Rustbrand Sword"
+kind = "weapon"
+desc = "Issued to the lantern-guard when the lantern still had a guard. The rust has eaten the maker's mark, never the edge."
+[rustbrand_sword.weapon]
+damage = 34
+might_pct = 150
+finesse_pct = 100
+reach = 1700
+arc = 110
+light = { windup = 9, active = 3, recovery = 11, stamina = 20, poise = 18, mult_pct = 100 }
+heavy = { windup = 21, active = 4, recovery = 17, stamina = 34, poise = 45, mult_pct = 165 }
+
+[thorn_knife]
+name = "Thorn Knife"
+kind = "weapon"
+desc = "A Thorn Court blade, cut from a bramble that grew through a king's ribs. It wants to be quick."
+[thorn_knife.weapon]
+damage = 22
+might_pct = 50
+finesse_pct = 180
+reach = 1300
+arc = 70
+light = { windup = 6, active = 2, recovery = 8, stamina = 13, poise = 9, mult_pct = 100 }
+heavy = { windup = 15, active = 3, recovery = 13, stamina = 24, poise = 25, mult_pct = 150 }
+
+[grave_sickle]
+name = "Grave Sickle"
+kind = "weapon"
+desc = "Gravediggers of Veyr cut grass from headstones with these. When the dead began to rise, they kept cutting."
+[grave_sickle.weapon]
+damage = 28
+might_pct = 70
+finesse_pct = 170
+reach = 1600
+arc = 140
+light = { windup = 8, active = 3, recovery = 9, stamina = 16, poise = 13, mult_pct = 100 }
+heavy = { windup = 18, active = 4, recovery = 14, stamina = 28, poise = 30, mult_pct = 160 }
+
+[penitent_maul]
+name = "Penitent Maul"
+kind = "weapon"
+desc = "A Synod confessor's hammer. Each dent is a name its owner was made to forget."
+[penitent_maul.weapon]
+damage = 52
+might_pct = 240
+finesse_pct = 20
+reach = 1800
+arc = 120
+light = { windup = 15, active = 4, recovery = 17, stamina = 28, poise = 40, mult_pct = 100 }
+heavy = { windup = 30, active = 5, recovery = 24, stamina = 44, poise = 90, mult_pct = 180 }
+
+[lantern_buckler]
+name = "Lantern Buckler"
+kind = "shield"
+desc = "A small brass shield hammered from a lantern housing. Turned at the right moment, it turns a blow back on its owner."
+[lantern_buckler.shield]
+guard_pct = 75
+guard_stamina_pct = 60
+parry = true
+
+[ember_psalm]
+name = "Ember Psalm"
+kind = "spell"
+desc = "Hum the third verse of the lantern hymn and a coal leaves the tongue. The Synod calls this theft."
+[ember_psalm.spell]
+form = "bolt"
+wick = 12
+cooldown = 24
+windup = 12
+recovery = 10
+damage = 40
+occult_pct = 300
+poise = 15
+speed = 400
+range = 9000
+
+[hollow_toll]
+name = "Hollow Toll"
+kind = "spell"
+desc = "A rite of the Ossuary sextons. Strike the ribs as if they were a bell; everything near must listen."
+[hollow_toll.spell]
+form = "toll"
+wick = 26
+cooldown = 150
+windup = 22
+recovery = 16
+damage = 55
+occult_pct = 350
+poise = 50
+radius = 2600
+occult_req = 10
+
+[mourners_wraps]
+name = "Mourner's Wraps"
+kind = "armor"
+desc = "Grey funeral linen, stitched for a body that was expected to stay down."
+[mourners_wraps.armor]
+defense = 6
+poise = 10
+
+[vigil_hauberk]
+name = "Vigil Hauberk"
+kind = "armor"
+desc = "Mail worn by the crypt-watch. They stood vigil so long the vigil forgot them."
+[vigil_hauberk.armor]
+defense = 18
+poise = 30
+
+[ashen_moth]
+name = "Ashen Moth"
+kind = "consumable"
+desc = "A moth made of someone's last thought. Crush it and keep what it remembered."
+max_stack = 20
+[ashen_moth.consumable]
+effect = "echoes"
+amount = 150
+
+[wax_seal]
+name = "Wax Seal"
+kind = "consumable"
+desc = "Candle wax pressed with a Synod seal. Melting it on the tongue rekindles the wick."
+max_stack = 10
+[wax_seal.consumable]
+effect = "wick"
+amount = 25
+
+[grave_salt]
+name = "Grave Salt"
+kind = "consumable"
+desc = "Coarse salt scraped from tomb lids. Bitter, and briefly restorative."
+max_stack = 10
+[grave_salt.consumable]
+effect = "cleanse"
+hp = 120
+
+[sexton_key]
+name = "Sexton's Key"
+kind = "key"
+desc = "Heavy iron, warm to the touch. Opens the Ossuary gate in Gloam Plaza."
+
+[tallow_cup]
+name = "Tallow Cup"
+kind = "key"
+desc = "A cup that holds one more draught than it should. Moth swears it was never stolen."
+
+[clapper_of_names]
+name = "Clapper of Names"
+kind = "key"
+desc = "The iron tongue of the Bell-Mother. Held to the ear, it whispers in a hundred voices, one of them yours."

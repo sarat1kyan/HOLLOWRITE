@@ -1,0 +1,131 @@
+# NPC dialogue. Nodes are checked top to bottom; the first whose conditions
+# hold is spoken. Conditions: `requires`/`forbids` test character flags,
+# `has_item` tests inventory. Effects run once when the node or choice fires.
+#
+# Flags written by the engine: lit:<lantern>, door:<door>, took:<pickup>,
+# got:<key item>, slain:<boss>.
+
+[hesper]
+name = "Hesper"
+title = "Keeper of the Last Lantern"
+faction = "last_lantern"
+
+[[hesper.dialogue]]
+forbids = ["met_hesper"]
+lines = [
+    "Another one. Sit, if your legs still remember how.",
+    "You woke at my lantern, so you are mine to warn: the bell beneath the Ossuary is still tolling. Every toll takes a name from somebody.",
+    "Light the lantern in Gloam Plaza. A second light is a second place to come back to.",
+]
+effects = { set = ["met_hesper", "q:light_plaza"] }
+choices = [
+    { label = "What is this place?", reply = ["The last lantern in Veyr that nobody has bargained with. The Synod wants it. The dead want it more."] },
+    { label = "Who were you?", reply = ["I was a name on a ledger, once. Then the bell rang and the ledger was blank. Hesper will do."] },
+]
+
+[[hesper.dialogue]]
+requires = ["slain:bell_mother"]
+has_item = ["clapper_of_names"]
+forbids = ["clapper_given"]
+lines = [
+    "You carry her tongue. I can hear it from here, all those voices arguing over whose name to say.",
+    "Leave it with me and the lantern will keep it quiet. Leave it with the Synod and they will make it sing for them.",
+]
+choices = [
+    { label = "Give Hesper the Clapper", reply = ["Thank you. Here, a little lantern oil for your cup. It will not go far, but it will go."], effects = { take = { clapper_of_names = 1 }, set = ["clapper_given", "rep:last_lantern"], draughts_max = 1, echoes = 600 } },
+    { label = "Not yet.", reply = ["Then keep it away from the Synod's ears."] },
+]
+
+[[hesper.dialogue]]
+requires = ["lit:gloam_lantern"]
+forbids = ["q:light_plaza_done"]
+lines = [
+    "Two lights. I can feel it from here, like a second heartbeat.",
+    "Take this salt; the orchard air stays in the lungs. And talk to Brother Ansel in the chapel. He has been waiting for someone with fewer scruples than me.",
+]
+effects = { set = ["q:light_plaza_done"], give = { grave_salt = 2 } }
+
+[[hesper.dialogue]]
+requires = ["q:light_plaza"]
+forbids = ["lit:gloam_lantern"]
+lines = [
+    "East from here, to the crossroads. The streets go north, the orchard south. Both reach the plaza and both bite.",
+    "If you fall, you will wake at the last lantern you rested at. What you were carrying stays where you fell. Go and get it back.",
+]
+
+[[hesper.dialogue]]
+requires = ["clapper_given"]
+lines = ["The bell is quiet. Strange, how loud quiet can be. Rest, Hollowbound. You have earned that much."]
+
+[[hesper.dialogue]]
+lines = ["The lantern holds. Rest when you need to. I'll mind the dark."]
+
+[ansel]
+name = "Ansel"
+title = "The Unwritten, of the Pale Synod"
+faction = "pale_synod"
+
+[[ansel.dialogue]]
+forbids = ["q:light_plaza_done"]
+lines = [
+    "The Keeper sent you? No. Not yet. Speak with her first.",
+    "I have nothing to say to someone who has not seen the plaza.",
+]
+
+[[ansel.dialogue]]
+forbids = ["q:sexton"]
+lines = [
+    "The Synod sent me to silence the bell. The bell silenced my name instead. I write it every morning and the ink is gone by noon.",
+    "There is a key in the Sexton's chapel, north, in the Lampless Streets. The knights there still guard it out of habit.",
+    "Take it. Open the Ossuary gate in the plaza. End her.",
+]
+effects = { set = ["q:sexton"] }
+choices = [
+    { label = "End who?", reply = ["The Bell-Mother. She was cast to ring the Hollow Rite. Now she rings it forever, and we pay for every peal."] },
+    { label = "What does the Synod get?", reply = ["Peace. And perhaps the clapper. A bell without a tongue cannot lie to anyone."] },
+]
+
+[[ansel.dialogue]]
+requires = ["slain:bell_mother"]
+has_item = ["clapper_of_names"]
+forbids = ["clapper_given"]
+lines = [
+    "Her tongue. Give it to me. The Synod can make it speak only the names worth keeping.",
+]
+choices = [
+    { label = "Give Ansel the Clapper", reply = ["Wise. The Synod remembers its friends, even when it forgets everyone else."], effects = { take = { clapper_of_names = 1 }, set = ["clapper_given", "rep:pale_synod"], echoes = 1500 } },
+    { label = "Not yet.", reply = ["Do not let the Keeper talk you into anything sentimental."] },
+]
+
+[[ansel.dialogue]]
+requires = ["clapper_given"]
+lines = ["It is done, then. I wrote my name this morning and it was still there at noon. I do not know what to do with that."]
+
+[[ansel.dialogue]]
+lines = [
+    "The key opens the gate in the plaza's east wall. Below it, the Ossuary. Below that, the bell.",
+    "Do not fight her where she can reach you twice. When the bell cracks, strike. When it rings, run.",
+]
+
+[moth]
+name = "Moth"
+title = "of the Thorn Court"
+faction = "thorn_court"
+
+[[moth.dialogue]]
+forbids = ["met_moth"]
+lines = [
+    "Oh. You found the soft wall. Most people find it with their face.",
+    "The Thorn Court bows to no lantern and no bell. We just live, which is apparently a heresy now.",
+    "Here. This cup holds one more swallow than it should. Don't ask who I took it from.",
+]
+effects = { set = ["met_moth"], give = { tallow_cup = 1 }, draughts_max = 1 }
+choices = [
+    { label = "What is the Thorn Court?", reply = ["Everyone who said no to the Rite. There were more of us once. Thorns grow back."] },
+]
+
+[[moth.dialogue]]
+lines = [
+    "The maul by the roots belonged to a Synod confessor. He won't miss it. He doesn't remember he had it.",
+    "If you see Ansel, tell him nothing. He collects things people tell him.",
+]

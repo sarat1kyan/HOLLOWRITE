@@ -1,0 +1,29 @@
+# Attribute order: vitality, endurance, might, finesse, occult.
+
+[ash_warden]
+name = "Ash Warden"
+desc = "A sentinel of the Last Lantern. Patient, armoured, and stubborn enough to turn a blade aside."
+attrs = [12, 12, 11, 8, 6]
+roll = "standard"
+main = "rustbrand_sword"
+off = "lantern_buckler"
+armor = "mourners_wraps"
+
+[veil_seer]
+name = "Veil Seer"
+desc = "One who reads the wrong stars. Fragile, but the dark answers when spoken to."
+attrs = [8, 9, 6, 9, 15]
+roll = "standard"
+main = "thorn_knife"
+armor = "mourners_wraps"
+spell1 = "ember_psalm"
+items = { wax_seal = 2 }
+
+[grave_runner]
+name = "Grave Runner"
+desc = "A corpse-courier who outran three deaths. Light of foot, quick to the throat."
+attrs = [10, 11, 8, 14, 6]
+roll = "quick"
+main = "grave_sickle"
+armor = "mourners_wraps"
+items = { grave_salt = 1 }

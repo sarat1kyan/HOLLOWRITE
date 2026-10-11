@@ -1,0 +1,141 @@
+{
+  "name": "veyr-dusk",
+  "palette": {
+    "void": "#0b0a09",
+    "charcoal": "#1b1814",
+    "soot": "#25211b",
+    "slate": "#4a5059",
+    "slate_hi": "#78808c",
+    "stone": "#6f6a60",
+    "rust": "#9a4a24",
+    "blood": "#6e1f1f",
+    "blood_hi": "#b23a33",
+    "amber": "#e8a644",
+    "amber_hi": "#ffd27a",
+    "gold": "#bf9a45",
+    "fog": "#7f95ab",
+    "fog_hi": "#b9cbe0",
+    "bone": "#ddd3bd",
+    "ash": "#8c857a",
+    "sickly": "#93a34c",
+    "sickly_hi": "#c4d36a",
+    "moss": "#4f5a34",
+    "water": "#2f4a5e",
+    "violet": "#8a76b8"
+  },
+  "ansi16": {
+    "void": "black",
+    "charcoal": "black",
+    "soot": "black",
+    "slate": "dark_gray",
+    "slate_hi": "gray",
+    "stone": "gray",
+    "rust": "red",
+    "blood": "red",
+    "blood_hi": "light_red",
+    "amber": "yellow",
+    "amber_hi": "light_yellow",
+    "gold": "yellow",
+    "fog": "cyan",
+    "fog_hi": "light_cyan",
+    "bone": "white",
+    "ash": "gray",
+    "sickly": "green",
+    "sickly_hi": "light_green",
+    "moss": "green",
+    "water": "blue",
+    "violet": "magenta"
+  },
+  "tiles": {
+    " ": { "name": "void", "glyphs": [" "], "ascii": " ", "fg": "void", "bg": "void" },
+    "#": { "name": "wall", "glyphs": ["box"], "ascii": "#", "fg": "slate_hi", "bg": "soot" },
+    ".": { "name": "floor", "glyphs": ["·", " ", " ", "·", " "], "ascii": ".", "fg": "slate", "bg": "charcoal" },
+    ":": { "name": "road", "glyphs": ["·", " ", "∙", " "], "ascii": ".", "fg": "stone", "bg": "soot" },
+    ",": { "name": "ash", "glyphs": [",", "'", " ", "`", " "], "ascii": ",", "fg": "ash", "bg": "charcoal" },
+    "\"": { "name": "grass", "glyphs": ["\"", "'", ",", "\""], "ascii": "\"", "fg": "moss", "bg": "charcoal" },
+    "T": { "name": "tree", "glyphs": ["♣", "♠"], "ascii": "T", "fg": "ash", "bg": "charcoal" },
+    "~": { "name": "water", "glyphs": ["≈", "~"], "ascii": "~", "fg": "fog", "bg": "water" },
+    "b": { "name": "bones", "glyphs": ["∴", "∵"], "ascii": ";", "fg": "bone", "bg": "charcoal" },
+    "%": { "name": "rubble", "glyphs": ["▪", "▫"], "ascii": "%", "fg": "stone", "bg": "charcoal" },
+    "+": { "name": "door", "glyphs": ["+"], "ascii": "+", "open": "'", "fg": "rust", "bg": "soot" },
+    "D": { "name": "shortcut", "glyphs": ["╪"], "ascii": "+", "open": "'", "fg": "rust", "bg": "soot" },
+    "G": { "name": "fog_gate", "glyphs": ["░", "▒"], "ascii": "&", "fg": "fog_hi", "bg": "slate" },
+    "L": { "name": "lantern", "glyphs": ["☼"], "ascii": "*", "fg": "amber", "bg": "soot" },
+    "|": { "name": "fence", "glyphs": ["│"], "ascii": "|", "fg": "stone", "bg": "charcoal" },
+    ">": { "name": "stairs", "glyphs": ["≡"], "ascii": ">", "fg": "stone", "bg": "soot" },
+    "^": { "name": "ember_pit", "glyphs": ["░", "▒"], "ascii": "^", "fg": "amber", "bg": "blood" },
+    "A": { "name": "altar", "glyphs": ["╤"], "ascii": "_", "fg": "gold", "bg": "soot" },
+    "X": { "name": "false_wall", "glyphs": ["box"], "ascii": "#", "fg": "slate_hi", "bg": "soot" },
+    "t": { "name": "grave", "glyphs": ["†"], "ascii": "t", "fg": "bone", "bg": "charcoal" },
+    "=": { "name": "pew", "glyphs": ["═"], "ascii": "=", "fg": "rust", "bg": "charcoal" }
+  },
+  "walls": {
+    "heavy": {
+      "0000": "■", "1000": "┃", "0100": "━", "0010": "┃", "0001": "━",
+      "1010": "┃", "0101": "━", "1100": "┗", "0110": "┏", "0011": "┓", "1001": "┛",
+      "1110": "┣", "0111": "┳", "1011": "┫", "1101": "┻", "1111": "╋"
+    },
+    "solid": " "
+  },
+  "entities": {
+    "player": { "glyphs": ["@", "&", "Ѻ", "Ж"], "ascii": ["@", "&", "@", "&"] },
+    "hues": ["bone", "amber_hi", "fog_hi", "sickly_hi", "violet", "blood_hi"],
+    "npc": { "hesper": { "glyph": "Ħ", "ascii": "H", "fg": "amber_hi" }, "ansel": { "glyph": "Å", "ascii": "A", "fg": "bone" }, "moth": { "glyph": "ɱ", "ascii": "M", "fg": "sickly_hi" } },
+    "enemy": {
+      "oathless_knight": { "glyph": "K", "ascii": "K", "fg": "blood_hi" },
+      "ashen_pilgrim": { "glyph": "p", "ascii": "p", "fg": "ash" },
+      "starveil_herald": { "glyph": "Ψ", "ascii": "h", "fg": "violet" }
+    },
+    "boss": {
+      "bell_mother": {
+        "fg": "gold",
+        "phase2": "sickly_hi",
+        "sprite": ["▄█▄", "█Ω█"],
+        "sprite_cracked": ["▄▓▄", "█Ω▓"],
+        "ascii": ["/^\\", "|B|"]
+      }
+    },
+    "projectile": {
+      "censer": { "glyph": "•", "ascii": "o", "fg": "amber" },
+      "ember_psalm": { "glyph": "✶", "ascii": "*", "fg": "amber_hi" },
+      "default": { "glyph": "•", "ascii": "*", "fg": "bone" }
+    },
+    "loot": { "glyph": "♦", "ascii": "$", "fg": "gold" },
+    "key_loot": { "glyph": "◆", "ascii": "k", "fg": "amber_hi" },
+    "remnant": { "glyph": "◊", "ascii": "&", "fg": "sickly_hi" }
+  },
+  "telegraphs": {
+    "strike": { "glyph": "×", "ascii": "x", "fg": "blood_hi", "bg": "blood" },
+    "heavy": { "glyph": "▓", "ascii": "X", "fg": "amber", "bg": "blood" },
+    "area": { "glyph": "░", "ascii": "o", "fg": "blood_hi", "bg": "blood" },
+    "shockwave": { "glyph": "◌", "ascii": "O", "fg": "bone", "bg": "rust" },
+    "hazard": { "glyph": "≈", "ascii": "~", "fg": "sickly_hi", "bg": "moss" },
+    "weak": { "glyph": "+", "ascii": "+", "fg": "amber_hi", "bg": "soot" }
+  },
+  "ui": {
+    "border": "slate",
+    "border_focus": "gold",
+    "title": "amber",
+    "text": "bone",
+    "muted": "ash",
+    "hp": "blood_hi",
+    "hp_back": "blood",
+    "stamina": "sickly",
+    "stamina_back": "moss",
+    "wick": "fog",
+    "wick_back": "water",
+    "echoes": "amber_hi",
+    "boss": "gold",
+    "party": "sickly_hi",
+    "system": "fog",
+    "local": "bone",
+    "party_chat": "sickly_hi",
+    "danger": "blood_hi"
+  },
+  "light": {
+    "player_radius": 15,
+    "lantern_radius": 8,
+    "ambient": 0.42,
+    "remembered": 0.22
+  }
+}
