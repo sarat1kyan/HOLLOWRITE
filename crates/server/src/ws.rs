@@ -79,6 +79,8 @@ impl Session {
                     tick_hz: self.state.content.balance.tick_hz,
                     snapshot_hz: self.state.content.balance.tick_hz / self.state.content.balance.snapshot_every,
                     account: self.auth.username.clone(),
+                    walk_speed: self.state.content.balance.walk_speed,
+                    body_radius: self.state.content.balance.body_radius,
                 })
                 .await;
             }

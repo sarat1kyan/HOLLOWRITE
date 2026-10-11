@@ -1,7 +1,24 @@
 [package]
-name = "hollowrite-terminal-client"
+name = "hollowrite-terminal"
+description = "Native terminal client for HOLLOWRITE"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
 
+[[bin]]
+name = "hollowrite"
+path = "src/main.rs"
+
 [dependencies]
+hollowrite-protocol.workspace = true
+tokio.workspace = true
+tokio-tungstenite.workspace = true
+futures-util.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+reqwest.workspace = true
+anyhow.workspace = true
+clap.workspace = true
+ratatui.workspace = true
+unicode-width.workspace = true
+dirs.workspace = true

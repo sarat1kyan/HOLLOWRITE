@@ -571,18 +571,61 @@ pub enum ClientMsg {
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(tag = "t", rename_all = "snake_case")]
 pub enum ServerMsg {
-    Welcome { protocol: u32, server: String, tick_hz: u32, snapshot_hz: u32, account: String },
-    Error { code: ErrorCode, message: String },
-    Characters { list: Vec<CharacterSummary> },
-    EnterWorld { you: EntityId, tick: u64, map: MapData, sheet: CharacterSheet },
+    Welcome {
+        protocol: u32,
+        server: String,
+        tick_hz: u32,
+        snapshot_hz: u32,
+        account: String,
+        /// Movement constants clients use for local prediction only.
+        #[serde(default)]
+        walk_speed: i32,
+        #[serde(default)]
+        body_radius: i32,
+    },
+    Error {
+        code: ErrorCode,
+        message: String,
+    },
+    Characters {
+        list: Vec<CharacterSummary>,
+    },
+    EnterWorld {
+        you: EntityId,
+        tick: u64,
+        map: MapData,
+        sheet: CharacterSheet,
+    },
     Snapshot(Snapshot),
-    Sheet { sheet: CharacterSheet },
-    Events { tick: u64, events: Vec<GameEvent> },
-    Chat { channel: ChatChannel, from: String, text: String },
-    Party { members: Vec<PartyMember>, invites: Vec<String> },
-    Dialogue { npc: EntityId, speaker: String, lines: Vec<String>, choices: Vec<String> },
-    Pong { nonce: u32, tick: u64 },
-    Kicked { reason: String },
+    Sheet {
+        sheet: CharacterSheet,
+    },
+    Events {
+        tick: u64,
+        events: Vec<GameEvent>,
+    },
+    Chat {
+        channel: ChatChannel,
+        from: String,
+        text: String,
+    },
+    Party {
+        members: Vec<PartyMember>,
+        invites: Vec<String>,
+    },
+    Dialogue {
+        npc: EntityId,
+        speaker: String,
+        lines: Vec<String>,
+        choices: Vec<String>,
+    },
+    Pong {
+        nonce: u32,
+        tick: u64,
+    },
+    Kicked {
+        reason: String,
+    },
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
