@@ -147,7 +147,7 @@ client in a 120×35 tmux pane, Chromium driven by
 | D. both see each other move; chat crosses clients | done; Bob's message appears in Alice's terminal | `docs/captures/terminal-alice-sees-bob.png`, `browser-bob-sees-alice.png` |
 | D. party | verified by the end-to-end test and `make smoke`, not by hand in the two UIs | test output |
 | E. shared enemy, telegraphs, rewards | done: terminal Dave and browser Erin walked the same route and killed the first knight together; both at the same health (296/444), both +60 echoes once, Dave's Grave Salt drop personal | `docs/captures/terminal-dave-fights-knight.png`, `browser-erin-fights-knight.png`, `scripts/cross-client-fight.sh` |
-| F. same boss health and phase for both | verified in simulation (shared encounter, scaling, phase); not yet captured across clients | tests |
+| F. same boss health and phase for both | done: terminal Hank and browser Ivy entered the belfry together; the door sealed for both, both took the same sweep (173/840) and both boss bars show the same health. The two characters were staged next to the Sexton's Lantern with SQL (position, lantern and gate flags, Vitality 30) to skip the walk; everything after that went through the clients | `docs/captures/terminal-hank-bell-mother.png`, `browser-ivy-bell-mother.png` |
 | G. death, respawn, remnant retrieval | verified in simulation; the persistence of remnants verified in the database round-trip test | tests |
 | H. disconnect, restart, resume | verified by the end-to-end restart test (position and inventory) | test output |
 | I. low-colour / ASCII mode | done: `--ascii --colors 16` at 100×30, all terrain, players, NPC and lantern legible | `docs/captures/terminal-ascii-16colour.png` |

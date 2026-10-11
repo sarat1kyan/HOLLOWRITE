@@ -23,12 +23,12 @@ jobs:
           POSTGRES_DB: hollowrite_test
         ports: ["5432:5432"]
         options: >-
-          --health-cmd "pg_isready -U hollowrite" --health-interval 5s --health-timeout 3s --health-retries 20
+          --health-cmd "pg_isready -U hollowrite -d hollowrite_test" --health-interval 5s --health-timeout 3s --health-retries 20
     env:
       TEST_DATABASE_URL: postgres://hollowrite:hollowrite@127.0.0.1:5432/hollowrite_test
       DATABASE_URL: postgres://hollowrite:hollowrite@127.0.0.1:5432/hollowrite_test
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: dtolnay/rust-toolchain@stable
         with:
           components: rustfmt, clippy
@@ -57,8 +57,8 @@ jobs:
       run:
         working-directory: apps/web
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: npm
@@ -72,7 +72,7 @@ jobs:
   audit:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: dtolnay/rust-toolchain@stable
       - name: cargo audit
         run: |

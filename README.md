@@ -25,8 +25,10 @@ the terminal, Bob in Chromium, and Bob's chat line reached both.
 Dave (terminal) and Erin (browser) fought the same Oathless Knight: both show
 the same server-side health, both received the kill reward exactly once, and
 Dave's personal drop appeared only for him. Reproduce with
-`scripts/cross-client-fight.sh`. Compact 80×24 and ASCII/16-colour captures
-are in `docs/captures/`.
+`scripts/cross-client-fight.sh`. The same pair of
+screenshots exists for the Bell-Mother (`docs/captures/*bell-mother.png`):
+one sealed arena, one boss health bar, the same hit on both players. Compact
+80×24 and ASCII/16-colour captures are in `docs/captures/`.
 
 ## What exists right now
 

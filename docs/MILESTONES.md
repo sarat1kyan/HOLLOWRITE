@@ -56,7 +56,7 @@ recorded manual check; see TEST_PLAN.md for the evidence.
 - [ ] Pointer interactions in the browser (keyboard only for now).
 - [x] Captures of a shared fight across both clients
       (`scripts/cross-client-fight.sh`).
-- [ ] Capture of the boss fight across both clients.
+- [x] Capture of the boss fight across both clients.
 
 ## M5: hardening (in progress)
 
@@ -98,9 +98,8 @@ recorded manual check; see TEST_PLAN.md for the evidence.
 
 1. Human playtest session (two people, one per client) through the whole
    path; record session length, deaths and the boss fight.
-2. Capture the boss fight across both clients for the README.
-3. Windows and macOS terminal checks; Firefox and Safari checks.
-4. Field-delta snapshots behind a protocol version bump, if measurements
+2. Windows and macOS terminal checks; Firefox and Safari checks.
+3. Field-delta snapshots behind a protocol version bump, if measurements
    from playtests show the need.
-5. Deployment profile: TLS reverse proxy config, systemd unit, nightly
+4. Deployment profile: TLS reverse proxy config, systemd unit, nightly
    backups, trusted proxy headers for rate limits.
